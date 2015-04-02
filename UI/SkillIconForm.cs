@@ -77,6 +77,8 @@ namespace HybrasylEditor.UI
                 }
             }
 
+            statusLabel.Text = string.Empty;
+
             GC.Collect();
 
             UpdateSpriteBox();
@@ -109,6 +111,12 @@ namespace HybrasylEditor.UI
             if (_isHovering)
             {
                 _cursorPoint = new Point(e.X / 32, e.Y / 32);
+                int icon = GetSelectedSkillIcon();
+                statusLabel.Text = string.Format("Icon: {0}", icon);
+            }
+            else
+            {
+                statusLabel.Text = string.Empty;
             }
 
             UpdateSpriteBox();
@@ -121,6 +129,7 @@ namespace HybrasylEditor.UI
         private void spriteBox_MouseLeave(object sender, EventArgs e)
         {
             _isHovering = false;
+            statusLabel.Text = string.Empty;
             UpdateSpriteBox();
         }
         private void spriteBox_MouseDoubleClick(object sender, MouseEventArgs e)

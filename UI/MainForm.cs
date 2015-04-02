@@ -92,7 +92,6 @@ namespace HybrasylEditor.UI
             var dialog = new SkillIconForm(0, "skill");
             dialog.ShowDialog();
             int icon = dialog.SelectedIcon;
-            MessageBox.Show(string.Format("You selected skill icon {0}.", icon), "Skill Icon", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void spellViewerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -100,7 +99,6 @@ namespace HybrasylEditor.UI
             var dialog = new SkillIconForm(0, "spell");
             dialog.ShowDialog();
             int icon = dialog.SelectedIcon;
-            MessageBox.Show(string.Format("You selected spell icon {0}.", icon), "Skill Icon", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

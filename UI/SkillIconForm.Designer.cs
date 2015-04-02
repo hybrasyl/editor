@@ -50,7 +50,10 @@ namespace HybrasylEditor.UI
         private void InitializeComponent()
         {
             this.spriteBox = new System.Windows.Forms.PictureBox();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.spriteBox)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // spriteBox
@@ -67,13 +70,30 @@ namespace HybrasylEditor.UI
             this.spriteBox.MouseLeave += new System.EventHandler(this.spriteBox_MouseLeave);
             this.spriteBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.spriteBox_MouseMove);
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusLabel});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 512);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(512, 22);
+            this.statusStrip1.TabIndex = 4;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // statusLabel
+            // 
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(90, 17);
+            this.statusLabel.Text = "Loading icons...";
+            // 
             // SkillIconForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(512, 512);
+            this.ClientSize = new System.Drawing.Size(512, 534);
             this.Controls.Add(this.spriteBox);
+            this.Controls.Add(this.statusStrip1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -83,12 +103,17 @@ namespace HybrasylEditor.UI
             this.Text = "Skill Icon";
             this.Load += new System.EventHandler(this.ItemSpriteForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.spriteBox)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.PictureBox spriteBox;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel statusLabel;
     }
 }
