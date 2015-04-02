@@ -35,8 +35,14 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NAudio">
+      <HintPath>packages\NAudio.1.7.3\lib\net35\NAudio.dll</HintPath>
+    </Reference>
     <Reference Include="RestSharp">
       <HintPath>packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpYaml">
+      <HintPath>packages\SharpYaml.1.2.0\lib\SharpYaml.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -67,6 +73,13 @@
     <Compile Include="Enumerations.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Reactor.cs" />
+    <Compile Include="Skill.cs" />
+    <Compile Include="UI\SkillIconForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\SkillIconForm.Designer.cs">
+      <DependentUpon>SkillIconForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\MapPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -133,7 +146,16 @@
     <Compile Include="UI\SignForm.Designer.cs">
       <DependentUpon>SignForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\SkillForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\SkillForm.Designer.cs">
+      <DependentUpon>SkillForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ZlibProvider.cs" />
+    <EmbeddedResource Include="UI\SkillIconForm.resx">
+      <DependentUpon>SkillIconForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\MapPanel.resx">
       <DependentUpon>MapPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -174,6 +196,9 @@
     <EmbeddedResource Include="UI\SignForm.resx">
       <DependentUpon>SignForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\SkillForm.resx">
+      <DependentUpon>SkillForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -199,6 +224,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\NewFile_6276.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\action_Cancel_16xSM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\action_add_16xMD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\action_Cancel_16xMD.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

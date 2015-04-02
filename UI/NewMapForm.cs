@@ -32,11 +32,11 @@ namespace HybrasylEditor.UI
         public NewMapForm()
         {
             string localStorage = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            string mapPath = localStorage + @"\VirtualStore\Program Files (x86)\KRU\Dark Ages\maps\lod505.map";
+            string mapPath = localStorage + @"\VirtualStore\Program Files (x86)\KRU\Dark Ages\maps\lod500.map";
 
             InitializeComponent();
 
-            this.map = new Map() { Width = 50, Height = 50 };
+            this.map = new Map() { Width = 100, Height = 100 };
             this.map.SetData(File.ReadAllBytes(mapPath));
             
             this.propertyGrid1.SelectedObject = map;
