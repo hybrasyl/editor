@@ -30,14 +30,8 @@ namespace HybrasylEditor
 {
     public class Map
     {
-        private static Dictionary<int, string> list;
         private static Dictionary<int, Bitmap> cachedFloor;
         private static Dictionary<int, Bitmap> cachedWalls;
-
-        public static Dictionary<int, string> List
-        {
-            get { return list; }
-        }
 
         private int id;
         private string name;
@@ -113,12 +107,7 @@ namespace HybrasylEditor
         }
 
         static Map()
-        {
-            list = new Dictionary<int, string>()
-            {
-                { 500, "Mileth Village" },
-                { 505, "Rucesion Village" }
-            };
+        {            
             cachedFloor = new Dictionary<int, Bitmap>();
             cachedWalls = new Dictionary<int, Bitmap>();
         }

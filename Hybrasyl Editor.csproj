@@ -70,10 +70,17 @@
     <Compile Include="Capricorn\Drawing\MPF.cs" />
     <Compile Include="Capricorn\Drawing\Palette.cs" />
     <Compile Include="Capricorn\Drawing\Tileset.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="Enumerations.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Reactor.cs" />
     <Compile Include="Skill.cs" />
+    <Compile Include="UI\OptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\OptionsForm.Designer.cs">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\SkillIconForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,6 +160,9 @@
       <DependentUpon>SkillForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ZlibProvider.cs" />
+    <EmbeddedResource Include="UI\OptionsForm.resx">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\SkillIconForm.resx">
       <DependentUpon>SkillIconForm.cs</DependentUpon>
     </EmbeddedResource>

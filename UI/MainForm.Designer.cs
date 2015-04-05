@@ -65,11 +65,13 @@ namespace HybrasylEditor.UI
             this.openSkillSpell = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.itemViewerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.skillViewerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spellViewerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -106,41 +108,41 @@ namespace HybrasylEditor.UI
             this.newNpc,
             this.newSkillSpell});
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.newToolStripMenuItem.Text = "&New";
             // 
             // newItem
             // 
             this.newItem.Name = "newItem";
-            this.newItem.Size = new System.Drawing.Size(152, 22);
+            this.newItem.Size = new System.Drawing.Size(125, 22);
             this.newItem.Text = "Item";
             this.newItem.Click += new System.EventHandler(this.newItem_Click);
             // 
             // newMap
             // 
             this.newMap.Name = "newMap";
-            this.newMap.Size = new System.Drawing.Size(152, 22);
+            this.newMap.Size = new System.Drawing.Size(125, 22);
             this.newMap.Text = "Map";
             this.newMap.Click += new System.EventHandler(this.newMap_Click);
             // 
             // newMonster
             // 
             this.newMonster.Name = "newMonster";
-            this.newMonster.Size = new System.Drawing.Size(152, 22);
+            this.newMonster.Size = new System.Drawing.Size(125, 22);
             this.newMonster.Text = "Monster";
             this.newMonster.Click += new System.EventHandler(this.newMonster_Click);
             // 
             // newNpc
             // 
             this.newNpc.Name = "newNpc";
-            this.newNpc.Size = new System.Drawing.Size(152, 22);
+            this.newNpc.Size = new System.Drawing.Size(125, 22);
             this.newNpc.Text = "NPC";
             this.newNpc.Click += new System.EventHandler(this.newNpc_Click);
             // 
             // newSkillSpell
             // 
             this.newSkillSpell.Name = "newSkillSpell";
-            this.newSkillSpell.Size = new System.Drawing.Size(152, 22);
+            this.newSkillSpell.Size = new System.Drawing.Size(125, 22);
             this.newSkillSpell.Text = "Skill/Spell";
             this.newSkillSpell.Click += new System.EventHandler(this.newSkillSpell_Click);
             // 
@@ -153,7 +155,7 @@ namespace HybrasylEditor.UI
             this.openNpc,
             this.openSkillSpell});
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.openToolStripMenuItem.Text = "&Open";
             // 
             // openItem
@@ -194,28 +196,24 @@ namespace HybrasylEditor.UI
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(131, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // windowToolStripMenuItem
-            // 
-            this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
-            this.windowToolStripMenuItem.Text = "&Window";
             // 
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itemViewerToolStripMenuItem,
             this.skillViewerToolStripMenuItem,
-            this.spellViewerToolStripMenuItem});
+            this.spellViewerToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.optionsToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
@@ -240,6 +238,24 @@ namespace HybrasylEditor.UI
             this.spellViewerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.spellViewerToolStripMenuItem.Text = "S&pell Viewer";
             this.spellViewerToolStripMenuItem.Click += new System.EventHandler(this.spellViewerToolStripMenuItem_Click);
+            // 
+            // windowToolStripMenuItem
+            // 
+            this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
+            this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            this.windowToolStripMenuItem.Text = "&Window";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.optionsToolStripMenuItem.Text = "&Options";
+            this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -283,6 +299,8 @@ namespace HybrasylEditor.UI
         private System.Windows.Forms.ToolStripMenuItem itemViewerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem skillViewerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem spellViewerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
 
     }
 }

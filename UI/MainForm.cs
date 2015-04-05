@@ -39,7 +39,12 @@ namespace HybrasylEditor.UI
         }
         private void newMap_Click(object sender, EventArgs e)
         {
+            if (!CheckRequiredOptionsForMapEditor())
+                return;
 
+            var form = new NewMapForm();
+            form.MdiParent = this;
+            form.Show();
         }
         private void newMonster_Click(object sender, EventArgs e)
         {
@@ -62,7 +67,12 @@ namespace HybrasylEditor.UI
         }
         private void openMap_Click(object sender, EventArgs e)
         {
+            if (!CheckRequiredOptionsForMapEditor())
+                return;
 
+            var form = new OpenMapForm();
+            form.MdiParent = this;
+            form.Show();
         }
         private void openMonster_Click(object sender, EventArgs e)
         {
@@ -99,6 +109,33 @@ namespace HybrasylEditor.UI
             var dialog = new SkillIconForm(0, "spell");
             dialog.ShowDialog();
             int icon = dialog.SelectedIcon;
+        }
+
+        private bool CheckRequiredOptionsForMapEditor()
+        {
+            // returns true/false to indicate if required options exist
+
+            if (string.IsNullOrEmpty(Configuration.Current.DarkagesInstallDirectory) || 
+                !System.IO.Directory.Exists(Configuration.Current.DarkagesInstallDirectory))
+            {
+                MessageBox.Show("Please select your Darkages Install Directory in: Tools > Options");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(Configuration.Current.HybrasylWorldDirectory) ||
+                !System.IO.Directory.Exists(Configuration.Current.HybrasylWorldDirectory))
+            {
+                MessageBox.Show("Please select your Hybrasyl World Directory in: Tools > Options");
+                return false;
+            }
+
+            return true;
+        }
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var dialog = new OptionsForm() { Configuration = Configuration.Current };
+            dialog.ShowDialog(this);
         }
     }
 }

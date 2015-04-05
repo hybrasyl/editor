@@ -62,6 +62,8 @@ namespace HybrasylEditor.UI
             this.mapList.Name = "mapList";
             this.mapList.Size = new System.Drawing.Size(307, 304);
             this.mapList.TabIndex = 0;
+            this.mapList.DoubleClick += new System.EventHandler(this.mapList_DoubleClick);
+            this.mapList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mapList_KeyDown);
             // 
             // searchBox
             // 
@@ -90,7 +92,7 @@ namespace HybrasylEditor.UI
             this.Controls.Add(this.mapList);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "OpenMapForm";
-            this.Text = "Open Man";
+            this.Text = "Open Map";
             this.ResumeLayout(false);
             this.PerformLayout();
 
