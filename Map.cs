@@ -43,6 +43,8 @@ namespace HybrasylEditor
         private Dictionary<Point, Warp> warps;
         private Dictionary<Point, Npc> npcs;
         private Dictionary<Point, string> signs;
+        private List<FixedSpawn> spawnsFixed;
+        private List<ZoneSpawn> spawnsZoned;
 
         public int Id
         {
@@ -79,6 +81,19 @@ namespace HybrasylEditor
         {
             get { return tiles; }
         }
+
+        [Browsable(true)]
+        public List<FixedSpawn> SpawnsFixed 
+        { 
+            get { return spawnsFixed; } 
+        }
+
+        [Browsable(true)]
+        public List<ZoneSpawn> SpawnsZone 
+        {
+            get { return spawnsZoned; } 
+        }
+
         [Browsable(false)]
         public Dictionary<Point, Warp> Warps
         {
@@ -118,6 +133,17 @@ namespace HybrasylEditor
             this.warps = new Dictionary<Point, Warp>();
             this.npcs = new Dictionary<Point, Npc>();
             this.signs = new Dictionary<Point, string>();
+            this.spawnsFixed = new List<FixedSpawn>();
+            this.spawnsZoned = new List<ZoneSpawn>();
+        }
+        public Map(List<FixedSpawn> fixedSpawns, List<ZoneSpawn> zoneSpawns)
+            : this()
+        {
+            if (fixedSpawns != null)
+                this.spawnsFixed = fixedSpawns;
+            
+            if (zoneSpawns != null)
+                this.spawnsZoned = zoneSpawns;
         }
 
         public void Add(Npc npc)
@@ -202,6 +228,92 @@ namespace HybrasylEditor
             {
                 return rightWall > 0 && (sotp[rightWall - 1] & 0x80) == 0x80;
             }
+        }
+    }
+
+    [TypeConverter(typeof(ExpandableObjectConverter))]
+    public class FixedSpawn
+    {
+        public const int DEFAULT_SPEED = 1;
+        public const bool DEFAULT_HOSTILE = true;
+        public const string DEFAULT_STRATEGY = "random";
+
+        public string name { get; set; }
+        public int checkrate { get; set; }
+        public int min { get; set; }
+        public int max { get; set; }
+        public int every { get; set; }
+        public float percentage { get; set; }
+        
+        // properties with defaults
+        public int _speed = DEFAULT_SPEED;
+        public int speed
+        { 
+            get { return _speed; } 
+            set { _speed = value; } 
+        }
+        public bool _hostile = DEFAULT_HOSTILE;
+        public bool hostile
+        {
+            get { return _hostile; }
+            set { _hostile = value; }
+        }
+        public string _strategy = DEFAULT_STRATEGY;
+        public string strategy 
+        {
+            get { return _strategy; }
+            set { _strategy = value; }
+        }
+
+        public FixedSpawn() { }
+
+        public override string ToString()
+        {
+            return string.Format("{{name={0}, checkRate={1}}}", name, checkrate);
+        }
+    }
+
+    [TypeConverter(typeof(ExpandableObjectConverter))]
+    public class ZoneSpawn
+    {
+        public const int DEFAULT_SPEED = 1;
+        public const bool DEFAULT_HOSTILE = true;
+        public const string DEFAULT_STRATEGY = "random";
+
+        public string name { get; set; }
+        public int checkrate { get; set; }
+        public Point start_point { get; set; }
+        public Point end_point { get; set; }
+        public int min { get; set; }
+        public int max { get; set; }
+        public int every { get; set; }
+        public float percentage { get; set; }
+
+        // properties with defaults
+        public int _speed = DEFAULT_SPEED;
+        public int speed
+        {
+            get { return _speed; }
+            set { _speed = value; }
+        }
+        public bool _hostile = DEFAULT_HOSTILE;
+        public bool hostile
+        {
+            get { return _hostile; }
+            set { _hostile = value; }
+        }
+        public string _strategy = DEFAULT_STRATEGY;
+        public string strategy
+        {
+            get { return _strategy; }
+            set { _strategy = value; }
+        }
+
+        public ZoneSpawn() { }
+
+        public override string ToString()
+        {
+            return string.Format("{{name={0}, start={{{1},{2}}}, end={{{3},{4}}}, checkRate={5}}}", name, start_point.X, start_point.Y, end_point.X, end_point.Y, checkrate);
         }
     }
 

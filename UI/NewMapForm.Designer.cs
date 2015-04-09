@@ -52,13 +52,16 @@ namespace HybrasylEditor.UI
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewMapForm));
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.showSpawnButton = new System.Windows.Forms.ToolStripButton();
+            this.saveYamlButton = new System.Windows.Forms.ToolStripButton();
             this.showFloorButton = new System.Windows.Forms.ToolStripButton();
             this.showLeftWallButton = new System.Windows.Forms.ToolStripButton();
             this.showRightWallButton = new System.Windows.Forms.ToolStripButton();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.mapPanel = new HybrasylEditor.UI.MapPanel();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.showNpcButton = new System.Windows.Forms.ToolStripButton();
+            this.mapPanel = new HybrasylEditor.UI.MapPanel();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -74,16 +77,63 @@ namespace HybrasylEditor.UI
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveYamlButton,
+            this.toolStripSeparator2,
             this.showFloorButton,
             this.showLeftWallButton,
             this.showRightWallButton,
             this.toolStripSeparator1,
-            this.showNpcButton});
+            this.showNpcButton,
+            this.showSpawnButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(967, 25);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.mapPanel);
+            this.panel1.Controls.Add(this.toolStrip1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(233, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(967, 640);
+            this.panel1.TabIndex = 2;
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // showSpawnButton
+            // 
+            this.showSpawnButton.Checked = true;
+            this.showSpawnButton.CheckOnClick = true;
+            this.showSpawnButton.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.showSpawnButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.showSpawnButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.showSpawnButton.Name = "showSpawnButton";
+            this.showSpawnButton.Size = new System.Drawing.Size(52, 22);
+            this.showSpawnButton.Tag = "";
+            this.showSpawnButton.Text = "SPAWN";
+            this.showSpawnButton.Click += new System.EventHandler(this.showSpawnButton_Click);
+            // 
+            // saveYamlButton
+            // 
+            this.saveYamlButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.saveYamlButton.Image = global::HybrasylEditor.Properties.Resources.save16;
+            this.saveYamlButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.saveYamlButton.Name = "saveYamlButton";
+            this.saveYamlButton.Size = new System.Drawing.Size(23, 22);
+            this.saveYamlButton.Text = "SAVE";
+            this.saveYamlButton.ToolTipText = "Save YAML";
+            this.saveYamlButton.Click += new System.EventHandler(this.saveYamlButton_Click);
             // 
             // showFloorButton
             // 
@@ -124,32 +174,6 @@ namespace HybrasylEditor.UI
             this.showRightWallButton.Text = "RFG";
             this.showRightWallButton.Click += new System.EventHandler(this.showRightWallButton_Click);
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.mapPanel);
-            this.panel1.Controls.Add(this.toolStrip1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(233, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(967, 640);
-            this.panel1.TabIndex = 2;
-            // 
-            // mapPanel
-            // 
-            this.mapPanel.BackColor = System.Drawing.Color.Black;
-            this.mapPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mapPanel.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mapPanel.Location = new System.Drawing.Point(0, 25);
-            this.mapPanel.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.mapPanel.Name = "mapPanel";
-            this.mapPanel.Size = new System.Drawing.Size(967, 615);
-            this.mapPanel.TabIndex = 4;
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
             // showNpcButton
             // 
             this.showNpcButton.Checked = true;
@@ -163,6 +187,17 @@ namespace HybrasylEditor.UI
             this.showNpcButton.Text = "NPC";
             this.showNpcButton.Click += new System.EventHandler(this.showNpcButton_Click);
             // 
+            // mapPanel
+            // 
+            this.mapPanel.BackColor = System.Drawing.Color.Black;
+            this.mapPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mapPanel.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mapPanel.Location = new System.Drawing.Point(0, 25);
+            this.mapPanel.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.mapPanel.Name = "mapPanel";
+            this.mapPanel.Size = new System.Drawing.Size(967, 615);
+            this.mapPanel.TabIndex = 4;
+            // 
             // NewMapForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -173,7 +208,7 @@ namespace HybrasylEditor.UI
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "NewMapForm";
             this.ShowIcon = false;
-            this.Text = "New Map";
+            this.Text = "Edit Map";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -193,5 +228,8 @@ namespace HybrasylEditor.UI
         private MapPanel mapPanel;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton showNpcButton;
+        private System.Windows.Forms.ToolStripButton saveYamlButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton showSpawnButton;
     }
 }
