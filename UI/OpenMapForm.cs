@@ -28,23 +28,126 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace HybrasylEditor.UI
 {
     public partial class OpenMapForm : Form
     {
+        private static Dictionary<int, string> list;
+
+        static OpenMapForm()
+        {
+            list = new Dictionary<int, string>();
+
+            if (Configuration.Current.HybrasylMapsDirectory.Length > 0 &&
+                Directory.Exists(Configuration.Current.HybrasylMapsDirectory))
+            {
+                LoadHybrasylMapList();
+            }
+        }
+
         public OpenMapForm()
         {
             InitializeComponent();
-            foreach (var map in Map.List)
+            foreach (var map in list)
                 mapList.Items.Add(new Tuple<int, string>(map.Key, map.Value));
+        }
+
+        public string SelectedMapFilename
+        {
+            get
+            {
+                var map = mapList.SelectedItem as Tuple<int, string>;
+                if (map == null)
+                    return null;
+
+                // reconstruct map filename, eg: "AbelInn_169.yml"
+                var mapFilename = string.Concat(map.Item2, "_", map.Item1, ".yml");
+                return mapFilename;
+            }
+        }
+
+        public int SelectedMapNumber
+        {
+            get
+            {
+                var map = mapList.SelectedItem as Tuple<int, string>;
+                if (map == null)
+                    return -1;
+                else
+                    return Convert.ToInt32(map.Item1);
+            }
+        }
+
+        private static void LoadHybrasylMapList()
+        {
+            try
+            {
+                var mapFilenames = Directory.GetFiles(Configuration.Current.HybrasylMapsDirectory, "*.yml").Select(m => Path.GetFileNameWithoutExtension(m));
+
+                Dictionary<int, string> mapList = new Dictionary<int, string>();
+                foreach (var m in mapFilenames)
+                {
+                    string[] mapNameParts = m.Split('_');
+
+                    string mapName = mapNameParts[0];
+                    int mapNum = Convert.ToInt32(mapNameParts[1]);
+
+                    mapList[mapNum] = mapName;
+                }
+
+                list = mapList;
+            }
+            catch (Exception ex)
+            {
+                ShowError("Error loading map list:" + Environment.NewLine + ex.ToString());
+            }
+        }
+
+        private static void ShowError(string message)
+        {
+            System.Windows.Forms.MessageBox.Show(
+                message,
+                "Error",
+                System.Windows.Forms.MessageBoxButtons.OK,
+                System.Windows.Forms.MessageBoxIcon.Error);
+        }
+
+        private void LoadEditorForSelectedMap()
+        {
+            var dialog = new NewMapForm(SelectedMapNumber, SelectedMapFilename);
+            dialog.MdiParent = this.MdiParent;
+            dialog.Show();
+
+            this.Close();        
         }
 
         private void searchBox_TextChanged(object sender, EventArgs e)
         {
             mapList.Items.Clear();
-            foreach (var map in Map.List.Where(m => m.Value.ToUpper().Contains(searchBox.Text.ToUpper())))
+            foreach (var map in list.Where(m => m.Value.ToUpper().Contains(searchBox.Text.ToUpper())))
                 mapList.Items.Add(new Tuple<int, string>(map.Key, map.Value));
         }
+
+        private void mapList_DoubleClick(object sender, EventArgs e)
+        {
+            var map = mapList.SelectedItem as Tuple<int,string>;
+            if (map == null) return;
+
+            LoadEditorForSelectedMap();
+        }
+
+        private void mapList_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                var map = mapList.SelectedItem as Tuple<int, string>;
+                if (map == null) return;
+
+                LoadEditorForSelectedMap();
+            }
+        }
+
     }
 }

@@ -46,10 +46,13 @@ namespace HybrasylEditor.UI
         private Point dragStartPoint;
         private Point scrollOffset;
 
+        private ZoneSpawn editingSpawnZone;
+        
         private bool showFloor = true;
         private bool showLeftWalls = true;
         private bool showRightWalls = true;
         private bool showNpcs = true;
+        private bool showSpawns = true;
 
         private Point cursorMapPoint;
         private Point cursorScreenPoint;
@@ -108,6 +111,16 @@ namespace HybrasylEditor.UI
                 UpdateMap(true);
             }
         }
+        [DefaultValue(true)]
+        public bool ShowSpawns
+        {
+            get { return showSpawns; }
+            set
+            {
+                showSpawns = value;
+                UpdateMap(true);
+            }
+        }
 
         public MapPanel()
         {
@@ -138,6 +151,11 @@ namespace HybrasylEditor.UI
 
                 foreach (var warp in map.Warps.Values)
                     DrawWarp(g, warp, warp.SourcePoint);
+
+                if (showSpawns) { 
+                    foreach (var spawnZone in map.SpawnsZone)
+                        DrawSpawnZone(g, spawnZone);
+                }
 
                 g.DrawPolygon(new Pen(Color.Orange, 2f), new Point[] {
                     new Point(cursorScreenPoint.X, cursorScreenPoint.Y + Tileset.TileHeight / 2),
@@ -188,6 +206,37 @@ namespace HybrasylEditor.UI
                         new Point(clientPoint.X + Tileset.TileWidth / 2, clientPoint.Y)
                     });
         }
+        private void DrawSpawnZone(Graphics g, ZoneSpawn spawn)
+        {
+            int minX = Math.Min(spawn.start_point.X, spawn.end_point.X),
+                minY = Math.Min(spawn.start_point.Y, spawn.end_point.Y),
+                maxX = Math.Max(spawn.start_point.X, spawn.end_point.X),
+                maxY = Math.Max(spawn.start_point.Y, spawn.end_point.Y);
+
+	        // find "left,bottom,right,top" world coordinates of the spawn-zone rectangle
+	        var worldPoints = new [] {
+		        new Point( minX, maxY ),
+		        new Point( maxX, maxY ),
+		        new Point( maxX, minY ),
+		        new Point( minX, minY )
+	        };
+
+	        // convert to screen coordinates
+	        var screenPoints = new [] {
+		        MapPointToScreenPoint( worldPoints[0] ),
+		        MapPointToScreenPoint( worldPoints[1] ),
+		        MapPointToScreenPoint( worldPoints[2] ),
+		        MapPointToScreenPoint( worldPoints[3] )
+	        };
+
+	        // draw
+            g.FillPolygon(new SolidBrush(Color.FromArgb(127, Color.Red)), new Point[] {
+                new Point( screenPoints[0].X, screenPoints[0].Y + Tileset.TileHeight/2 ),
+	            new Point( screenPoints[1].X + Tileset.TileWidth/2, screenPoints[1].Y + Tileset.TileHeight ),
+	            new Point( screenPoints[2].X + Tileset.TileWidth, screenPoints[2].Y + Tileset.TileHeight/2 ),
+	            new Point( screenPoints[3].X + Tileset.TileWidth/2, screenPoints[3].Y )
+            });
+        }
 
         private void mapImage_MouseClick(object sender, MouseEventArgs e)
         {
@@ -215,7 +264,9 @@ namespace HybrasylEditor.UI
                 {
                     menuItemNew.MenuItems.AddRange(new MenuItem[] {
                         new MenuItem("NPC", new EventHandler(newNpc_Click)) { Tag = point },
-                        new MenuItem("Warp", new EventHandler(newWarp_Click)) { Tag = point }
+                        new MenuItem("Warp", new EventHandler(newWarp_Click)) { Tag = point },
+                        new MenuItem("Spawn (Fixed)", new EventHandler(newFixedSpawn_Click)) {Tag=point},
+                        new MenuItem("Spawn (Zone)", new EventHandler(newZoneSpawn_Click)) {Tag=point},
                     });
                 }
             }
@@ -271,10 +322,19 @@ namespace HybrasylEditor.UI
         }
         private void mapImage_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button != MouseButtons.Left) return;
-
-            isDragging = true;
-            dragStartPoint = e.Location;
+            if (e.Button == MouseButtons.Left)
+            {
+                isDragging = true;
+                dragStartPoint = e.Location;
+            }
+            else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                if (editingSpawnZone != null)
+                {
+                    FinalizeNewZoneSpawn(ScreenPointToMapPoint(e.Location));
+                }
+            }
+            
         }
         private void mapImage_MouseMove(object sender, MouseEventArgs e)
         {
@@ -294,6 +354,11 @@ namespace HybrasylEditor.UI
             if (cursorMapPoint.Y >= map.Height) cursorMapPoint.Y = map.Height - 1;
 
             cursorScreenPoint = MapPointToScreenPoint(cursorMapPoint);
+
+            if (editingSpawnZone != null)
+            {
+                editingSpawnZone.end_point = cursorMapPoint;
+            }
 
             UpdateMap();
         }
@@ -346,6 +411,42 @@ namespace HybrasylEditor.UI
                 fullMapImage = RenderMap();
             }
         }
+
+        private void newFixedSpawn_Click(object sender, EventArgs e)
+        {
+            var menuItem = (MenuItem)sender;
+            var point = (Point)menuItem.Tag;
+
+            var editor = new FixedSpawnEditor(map);
+            editor.Show();
+        }
+        private void newZoneSpawn_Click(object sender, EventArgs e)
+        {
+            var menuItem = (MenuItem)sender;
+            var point = (Point)menuItem.Tag;
+
+            editingSpawnZone = new ZoneSpawn { start_point = point, end_point = point};
+
+            map.SpawnsZone.Add(editingSpawnZone);
+        }
+        private void CreateNewZoneSpawn(Point start, Point end)
+        {
+            map.SpawnsZone.Add(new ZoneSpawn { start_point = start, end_point = end });
+
+            var editor = new FixedSpawnEditor(map);
+            editor.Show();
+        }
+        private void FinalizeNewZoneSpawn(Point end)
+        {
+            editingSpawnZone.end_point = end;
+
+            // open dialog to finish enditing (monster, checkrate, etc
+            var editor = new ZonepawnEditor(map);
+            editor.Show();
+
+            editingSpawnZone = null;
+        }
+
         private void newWarp_Click(object sender, EventArgs e)
         {
 
