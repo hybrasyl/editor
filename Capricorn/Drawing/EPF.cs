@@ -171,8 +171,8 @@ namespace Capricorn.Drawing
                 reader.BaseStream.Seek(epf.tocAddress + i * 16, SeekOrigin.Begin);
 
                 #region Get Frame Header
-                int left = reader.ReadUInt16();
                 int top = reader.ReadUInt16();
+                int left = reader.ReadUInt16();
                 int right = reader.ReadUInt16();
                 int bottom = reader.ReadUInt16();
 

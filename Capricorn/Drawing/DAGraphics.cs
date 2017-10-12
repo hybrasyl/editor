@@ -4,16 +4,6 @@ using System.Drawing.Imaging;
 
 namespace Capricorn.Drawing
 {
-    public enum ImageType
-    {
-        EPF,
-        MPF,
-        HPF,
-        SPF,
-        EFA,
-        ZP,
-        Tile
-    }
 
     public class DAGraphics
     {
@@ -28,22 +18,22 @@ namespace Capricorn.Drawing
 
         public unsafe static Bitmap RenderImage(HPFImage hpf, Palette256 palette)
         {
-            return SimpleRender(hpf.Width, hpf.Height, hpf.RawData, palette, ImageType.HPF);
+            return SimpleRender(hpf.Width, hpf.Height, hpf.RawData, palette);
         }
         public unsafe static Bitmap RenderImage(EPFFrame epf, Palette256 palette)
         {
-            return SimpleRender(epf.Width, epf.Height, epf.RawData, palette, ImageType.EPF);
+            return SimpleRender(epf.Width, epf.Height, epf.RawData, palette);
         }
         public unsafe static Bitmap RenderImage(MPFFrame mpf, Palette256 palette)
         {
-            return SimpleRender(mpf.Width, mpf.Height, mpf.RawData, palette, ImageType.MPF);
+            return SimpleRender(mpf.Width, mpf.Height, mpf.RawData, palette);
         }
         public unsafe static Bitmap RenderTile(byte[] tileData, Palette256 palette)
         {
-            return SimpleRender(Tileset.TileWidth, Tileset.TileHeight, tileData, palette, ImageType.Tile);
+            return SimpleRender(Tileset.TileWidth, Tileset.TileHeight, tileData, palette);
         }
 
-        private unsafe static Bitmap SimpleRender(int width, int height, byte[] data, Palette256 palette, ImageType type)
+        private unsafe static Bitmap SimpleRender(int width, int height, byte[] data, Palette256 palette)
         {
             Bitmap image = new Bitmap(width, height);
 
@@ -55,16 +45,8 @@ namespace Capricorn.Drawing
 
                 for (int x = 0; x < bmd.Width; x++)
                 {
-                    int colorIndex = 0;
-                    if (type == ImageType.EPF)
-                    {
-                        colorIndex = data[x * height + y];
-                    }
-                    else
-                    {
-                        colorIndex = data[y * width + x];
-                    }
-
+                    int colorIndex = colorIndex = data[y * width + x];
+                    
                     if (colorIndex == 0) continue;
 
                     #region 32 Bit Render
@@ -114,12 +96,6 @@ namespace Capricorn.Drawing
 
             // Unlock Bits
             image.UnlockBits(bmd);
-
-            // Flip Image
-            if (type == ImageType.EPF)
-            {
-                image.RotateFlip(RotateFlipType.Rotate90FlipX);
-            }
 
             // Return Bitmap
             return image;
